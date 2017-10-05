@@ -51,7 +51,9 @@ data "aws_iam_policy_document" "default" {
 
     effect = "Allow"
 
-    resources = "${format("arn:aws:s3:::%v", aws_s3_bucket_object.default.bucket)}"
+    resources = [
+      "${format("arn:aws:s3:::%v", aws_s3_bucket_object.default.bucket)}"
+    ]
   }
 
   statement {
