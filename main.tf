@@ -11,7 +11,7 @@ data "template_file" "default" {
   template = "${file("${path.module}/user_data.sh")}"
 
   vars {
-    s3_path = "${aws_s3_bucket_object.default.bucket}/${aws_s3_bucket_object.default.key}"
+    s3_path = "${aws_s3_bucket_object.default.bucket}${aws_s3_bucket_object.default.key}"
   }
 }
 
@@ -62,8 +62,7 @@ data "aws_iam_policy_document" "default" {
     effect = "Allow"
 
     resources = [
-      "${format("arn:aws:s3:::%v/%v", aws_s3_bucket_object.default.bucket, aws_s3_bucket_object.default.key)}",
-      "${format("arn:aws:s3:::%v/%v/*", aws_s3_bucket_object.default.bucket, aws_s3_bucket_object.default.key)}",
+      "${format("arn:aws:s3:::%v%v", aws_s3_bucket_object.default.bucket, aws_s3_bucket_object.default.key)}"
     ]
   }
 }
