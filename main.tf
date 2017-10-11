@@ -1,9 +1,9 @@
 # Define composite variables for resources
 module "label" {
-  source    = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.2.1"
-  namespace = "${var.namespace}"
-  name      = "${var.name}"
-  stage     = "${var.stage}"
+  source     = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.2.1"
+  namespace  = "${var.namespace}"
+  name       = "${var.name}"
+  stage      = "${var.stage}"
   attributes = ["s3", "stored"]
 }
 
@@ -11,15 +11,19 @@ data "template_file" "default" {
   template = "${file("${path.module}/user_data.sh")}"
 
   vars {
-    s3_path = "${aws_s3_bucket_object.default.bucket}${aws_s3_bucket_object.default.key}"
+    s3_user_data_uri = "s3://${aws_s3_bucket_object.default.bucket}${aws_s3_bucket_object.default.key}"
   }
+}
+
+locals {
+  aggregated_user_data = "${join("\n", var.user_data)}"
 }
 
 resource "aws_s3_bucket_object" "default" {
   bucket  = "${var.bucket}"
   key     = "${var.path}/user_data.sh"
-  content = "${join("\n", var.user_data)}"
-  etag    = "${md5(join("\n", var.user_data))}"
+  content = "${local.aggregated_user_data}"
+  etag    = "${md5(local.aggregated_user_data)}"
 }
 
 ## IAM Role Policy that allows access to S3
@@ -35,34 +39,22 @@ resource "aws_iam_policy" "default" {
 
 data "aws_iam_policy_document" "default" {
   statement {
-    actions = [
-      "s3:ListAllMyBuckets",
-    ]
+    actions = ["s3:ListBucket"]
 
     effect = "Allow"
 
     resources = [
-      "arn:aws:s3:::*",
+      "${format("arn:aws:s3:::%v", aws_s3_bucket_object.default.bucket)}",
     ]
   }
 
   statement {
-    actions = [ "s3:ListBucket" ]
+    actions = ["s3:GetObject"]
 
     effect = "Allow"
 
     resources = [
-      "${format("arn:aws:s3:::%v", aws_s3_bucket_object.default.bucket)}"
-    ]
-  }
-
-  statement {
-    actions = [ "s3:*" ]
-
-    effect = "Allow"
-
-    resources = [
-      "${format("arn:aws:s3:::%v%v", aws_s3_bucket_object.default.bucket, aws_s3_bucket_object.default.key)}"
+      "${format("arn:aws:s3:::%v%v", aws_s3_bucket_object.default.bucket, aws_s3_bucket_object.default.key)}",
     ]
   }
 }
