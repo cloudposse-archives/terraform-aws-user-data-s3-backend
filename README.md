@@ -1,1 +1,1 @@
-# terraform-template-user-data-s3-stored-ubuntu
+# terraform-template-ubuntu-s3-stored-user-data
