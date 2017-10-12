@@ -7,16 +7,17 @@ module "label" {
   attributes = ["s3", "stored"]
 }
 
+locals {
+  aggregated_user_data = "${join("\n", var.user_data)}"
+  template_path        = "${path.module}/templates/${var.os}.sh"
+}
+
 data "template_file" "default" {
-  template = "${file("${path.module}/user_data.sh")}"
+  template = "${file(local.template_path)}"
 
   vars {
     s3_user_data_uri = "s3://${aws_s3_bucket_object.default.bucket}${aws_s3_bucket_object.default.key}"
   }
-}
-
-locals {
-  aggregated_user_data = "${join("\n", var.user_data)}"
 }
 
 resource "aws_s3_bucket_object" "default" {
