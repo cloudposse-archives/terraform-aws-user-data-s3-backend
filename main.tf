@@ -4,7 +4,7 @@ module "label" {
   namespace  = "${var.namespace}"
   name       = "${var.name}"
   stage      = "${var.stage}"
-  attributes = ["s3", "stored"]
+  attributes = ["s3", "backend"]
 }
 
 locals {
