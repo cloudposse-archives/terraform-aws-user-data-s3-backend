@@ -1,0 +1,95 @@
+---
+#
+# This is the canonical configuration for the `README.md`
+# Run `make readme` to rebuild the `README.md`
+#
+
+# Name of this project
+name: terraform-aws-user-data-s3-backend
+
+# Tags of this project
+tags:
+  - aws
+  - terraform
+  - terraform-modules
+  - user-data
+  - cloud
+
+# Categories of this project
+categories:
+  - terraform-modules/user-data
+
+# Logo for this project
+#logo: docs/logo.png
+
+# License of this project
+license: "APACHE2"
+
+# Canonical GitHub repo
+github_repo: cloudposse/terraform-aws-user-data-s3-backend
+
+# Badges to display
+badges:
+  - name: "Build Status"
+    image: "https://travis-ci.org/cloudposse/terraform-aws-user-data-s3-backend.svg?branch=master"
+    url: "https://travis-ci.org/cloudposse/terraform-aws-user-data-s3-backend"
+  - name: "Latest Release"
+    image: "https://img.shields.io/github/release/cloudposse/terraform-aws-user-data-s3-backend.svg"
+    url: "https://github.com/cloudposse/terraform-aws-user-data-s3-backend/releases/latest"
+  - name: "Slack Community"
+    image: "https://slack.cloudposse.com/badge.svg"
+    url: "https://slack.cloudposse.com"
+
+related:
+  - name: "terraform-template-user-data-assests"
+    description: "terraform-template-user-data-assests"
+    url: "https://travis-ci.org/cloudposse/terraform-template-user-data-assests"
+  - name: "terraform-template-user-data-cloud"
+    description: "terraform-template-user-data-cloud"
+    url: "https://travis-ci.org/cloudposse/terraform-template-user-data-cloud"
+  - name: "terraform-aws-user-data-dns-proxy"
+    description: "terraform-aws-user-data-dns-proxy"
+    url: "https://travis-ci.org/cloudposse/terraform-aws-user-data-dns-proxy"
+  - name: "terraform-aws-user-data-resolv-conf"
+    description: "terraform-aws-user-data-resolv-conf"
+    url: "https://travis-ci.org/cloudposse/terraform-aws-user-data-resolv-conf"
+  - name: "terraform-template-user-data-dba"
+    description: "terraform-template-user-data-dba"
+    url: "https://travis-ci.org/cloudposse/terraform-template-user-data-dba"
+  - name: "terraform-template-user-data-dba"
+    description: "terraform-template-user-data-dba"
+    url: "https://travis-ci.org/cloudposse/terraform-template-user-data-dba"
+  - name: "terraform-template-user-data-github-authorized-keys"
+    description: "terraform-template-user-data-github-authorized-keys"
+    url: "https://travis-ci.org/cloudposse/terraform-template-user-data-github-authorized-keys"
+  - name: "terraform-template-user-data-nfs"
+    description: "terraform-template-user-data-nfs"
+    url: "https://travis-ci.org/cloudposse/terraform-template-user-data-nfs"
+
+# Short description of this project
+description: |-
+  terraform-aws-user-data-s3-backend
+
+# How to use this project
+# usage: |-
+#   Include this module in your existing terraform code:
+
+#   ```hcl
+#   module "user_data_nfs" {
+#     source = "git::https://github.com/cloudposse/terraform-template-user-data-assests.git?ref=master"
+#     namespace                  = "${var.namespace}"
+#     name                       = "${var.name}"
+#     stage                      = "${var.stage}"
+#     dir                        = "${var.dir}"
+#     host                       = "${var.host}"
+#   }
+#   ```
+
+include:
+  - "docs/targets.md"
+  - "docs/terraform.md"
+
+# Contributors to this project
+contributors:
+  - name: "Igor Rodionov"
+    github: "goruha"
